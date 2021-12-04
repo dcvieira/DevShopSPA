@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { ICatalogItem } from '../../catalog/models/catalogItem.model';
+import { ICatalogItem } from '../../catalog/models/catalog.model';
 
 
 
@@ -20,6 +20,18 @@ export class DataService {
     return this.http.get<Response>(url)
       .pipe(
         // retry(3), // retry a failed request up to 3 times
+        tap((res: Response) => {
+          return res;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  post(url: string, data: any, params?: any): Observable<Response> {
+    let options = {};
+
+    return this.http.post<Response>(url, data, options)
+      .pipe(
         tap((res: Response) => {
           return res;
         }),

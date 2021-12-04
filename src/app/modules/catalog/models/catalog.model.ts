@@ -1,6 +1,11 @@
 export interface ICatalogItem {
-    id: number;
+    id: string;
     name: string;
     description: string;
     price: number;
+}
+
+export interface ICategory {
+    categoryId: string;
+    name: string;
 }
